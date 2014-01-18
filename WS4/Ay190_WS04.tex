@@ -1,0 +1,114 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Ay 190 - WS04
+% Written by Chatarin Wong-u-railertkun
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass[11pt,letterpaper]{article}
+
+% Load some basic packages that are useful to have
+% and that should be part of any LaTeX installation.
+%
+
+\usepackage{graphicx}     % be able to include figures
+
+\usepackage{xcolor}         % get nice colors
+
+% change default font to Palatino (looks nicer!)
+\usepackage[latin1]{inputenc}
+\usepackage{mathpazo}
+\usepackage[T1]{fontenc}
+
+% load some useful math symbols/fonts
+\usepackage{latexsym,amsfonts,amsmath,amssymb}
+\usepackage{subcaption}
+
+% comfort package to easily set margins
+\usepackage[top=1in, bottom=1in, left=1in, right=1in]{geometry}
+
+% control some spacings
+%
+% spacing after a paragraph
+\setlength{\parskip}{.15cm}
+% indentation at the top of a new paragraph
+\setlength{\parindent}{0.0cm}
+
+\usepackage{courier}
+
+
+%----------------------------------------------------------------------------------------
+%	TITLE
+%----------------------------------------------------------------------------------------
+
+\begin{document}
+
+\begin{center}
+\Large
+Ay190 -- Worksheet 04 \\  
+Chatarin (Mee) Wong-u-railertkun\\
+Date: \today
+\end{center}
+
+%----------------------------------------------------------------------------------------
+%	QUESTION 1
+%----------------------------------------------------------------------------------------
+\section{Root Finding: Eccentricity Anomaly}
+
+\subsection{Earth's Orbit}
+The Earth has an orbital period of roughly 365 days. Thus, if we look for the Earth's position at time t = 91, 182, and 273 days, we would see the Earth at a quarter, half, and three quarter of the orbit from the perihelion, where the Earth was at t = 0. By the way of setting up the coordinate system, the perihelion has the coordinate of $(x, y) = (a, 0)$ with $ a = 1.496 \times 10^{6} $km. Thus, at t = 91 days, we would expect the Earth to be at, roughly, $(x, y) = (0, b)$. But, since the eccentricity is close to zero, $b \approx a$.
+
+Table \ref{tab:CircularOrbit} shows the position of the Earth at different t. I use the Newton's method, with initial guess of root at E = 0. In order to find the position (x,y) at a given time, we have to solve for the root of
+\begin{equation}
+	f(E) = E - \omega * t + e * \text{sin}(E) = 0 \nonumber
+\end{equation}
+The table below also shows the value of the function at the calculated root. We can see that it is close to zero, as desired.
+
+\begin{table}[h!]
+	\centering
+	\begin{tabular}{r | r | r | r | r | r}
+		% Table Header
+		t (day) & Root value & Function value at root & x (km) & y (km) & number of iteration \\
+		\hline
+		\hline
+		% table data
+		91 & 1.58209228899 & -1.73472347598e-17 & -16898.4000718 & 1495695.94618 & 4 \\
+		182 & 3.13096420068 & 2.08952863692e-16 & -1495915.50372 & 15897.6488829 & 3 \\
+		273 & 4.67948910053 & -1.94289029309e-16 & -49209.3417558 & -1494981.92489 & 4 \\
+		\hline
+	\end{tabular}
+	\caption{Table shows the position of the Earth at different time. We find the position by solving for the root of a function. The table also shows the
+	value of the function at calculated root, to indicate how close to zero it is.}
+	\label{tab:CircularOrbit}
+\end{table}
+
+\subsection{Abnormal Eccentricity}
+If the eccentricity goes up to $e=0.99999$, then value of b must be close to zero.
+
+\begin{table}[h!]
+	\centering
+	\begin{tabular}{r | r | r | r | r | r}
+		% Table Header
+		t (day) & Root value & Function value at root & x (km) & y (km) & number of iteration \\
+		\hline
+		\hline
+		% table data
+		91 & 2.30664638749 & -1.1022302463e-16 & -1004141.40161 & 4959.25376845 & 67 \\
+		182 & 3.13618964107 & -1.2923689896e-16 & -1495978.16403 & 36.1475915896 & 34 \\
+		273 & 3.96364377765 & 1.11022302463e-16 & -1018357.27326 & -4900.93554165 & 105 \\
+		\hline
+	\end{tabular}
+	\caption{Similar to table \ref{tab:CircularOrbit} but with eccentricity of 0.99999}
+	\label{tab:OvalOrbit}
+\end{table}
+
+From table \ref{tab:OvalOrbit}, we can see that, with new eccentricity, the number of iterations increases significantly. One way to accelerate the convergence is to increase the step size. Initially, we move the guessed root by $\frac{f(x)}{f'(x)}$. Now, we could increase that step size to $m \frac{f(x)}{f'(x)}$, where m is some integer.
+
+\section{Note}
+This set took me roughly an hour or two. I think there should be 2 more questions in this set, with an option to select and do one of them.
+	
+	
+\end{document}
+
